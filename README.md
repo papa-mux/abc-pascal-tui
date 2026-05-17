@@ -1,6 +1,6 @@
 abc-pascal-tui-termux - это IDE для Паскаля, основанная на компиляторе PascalABC.NET, но использующий TUI-интерфейс на Python.
 
-Для использования проекта необходимо сначала установить Python, Mono, Git и библиотеку Textual.
+Для скачивания IDE необходимо сначала установить Python, Mono, Git и библиотеку Textual.
 
 Выполните команды в консоли:
 * `pkg install mono -y`
