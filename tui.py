@@ -238,7 +238,7 @@ class PascalTUI(App):
                 
             self.log_box.write(f"Компиляция {os.path.basename(self.current_file)}...\n")                                                                                                             
             
-            comp_path = "/data/data/com.termux/files/home/pascalabcnet/bin/pabcnetc.exe"                                  
+            comp_path = "/data/data/com.termux/files/home/pascalabcnet/abc-pascal-tui-termux/pabcnetc.exe"                                  
             res = subprocess.run(["mono", comp_path, self.current_file], capture_output=True, text=True)                                                                            
             
             if "Lines compiled:" in res.stdout or ("OK" in res.stdout and "Compiling assembly" in res.stdout):                
