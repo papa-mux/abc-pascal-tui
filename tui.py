@@ -8,11 +8,23 @@ from textual.containers import Horizontal, Vertical, Grid
 
 TEMPLATE_HELLO_WORLD = "begin\n  writeln('Hello World');\nend."
 TEMPLATE_EMPTY = "begin\n  \nend."
-PROJECTS_DIR = "Projects"
+
+# ==========================================================
+# ДИНАМИЧЕСКОЕ ОПРЕДЕЛЕНИЕ ПУТЕЙ (Умная автоматика)
+# ==========================================================
+# Находим папку, в которой физически лежит этот файл tui.py
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Путь к компилятору прямо в этой же папке
+COMPILER_PATH = os.path.join(BASE_DIR, "pabcnetc.exe")
+
+# Путь к папке с проектами
+PROJECTS_DIR = os.path.join(BASE_DIR, "Projects")
+# ==========================================================
 
 class FileMenuScreen(ModalScreen):
     """Экран модального меню со списком файлов"""
-    
+
     CSS = """
     FileMenuScreen {
         align: center middle;
@@ -41,7 +53,7 @@ class FileMenuScreen(ModalScreen):
     def compose(self) -> ComposeResult:
         with Vertical(id="menu_container"):
             yield Label("📁 ВЫБОР ПРОЕКТА:")
-            
+
             initial_items = []
             if os.path.exists(PROJECTS_DIR):
                 files = [f for f in os.listdir(PROJECTS_DIR) if f.endswith(".pas")]
@@ -49,7 +61,7 @@ class FileMenuScreen(ModalScreen):
                 for file in files:
                     safe_id = f"file_{file.replace('.', '_')}"
                     initial_items.append(ListItem(Label(f"📄 {file}"), id=safe_id))
-            
+
             yield ListView(*initial_items, id="menu_file_list")
             yield Button("➕ Новый файл", variant="primary", id="menu_create_btn", classes="menu_btn")
             yield Button("🗑️ Удалить выбранный", variant="error", id="menu_delete_btn", classes="menu_btn")
@@ -57,7 +69,6 @@ class FileMenuScreen(ModalScreen):
 
     def on_list_view_selected(self, event: ListView.Selected) -> None:
         if event.item and event.item.id:
-            # Возвращаем выбранный ID обратно в главное приложение
             self.dismiss(("select", event.item.id))
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
@@ -77,7 +88,7 @@ class PascalTUI(App):
         ("o", "open_menu", "Открыть меню проектов"),
         ("s", "toggle_settings", "Настройки")
     ]
-    
+
     CSS = """
     #main_layout {
         layout: vertical;
@@ -107,10 +118,10 @@ class PascalTUI(App):
         super().__init__()
         self.code_backup = ""
         self.current_file = os.path.join(PROJECTS_DIR, "main.pas")
-        
+
         if not os.path.exists(PROJECTS_DIR):
             os.makedirs(PROJECTS_DIR)
-        
+
         if not os.listdir(PROJECTS_DIR):
             with open(self.current_file, "w", encoding="utf-8") as f:
                 f.write(TEMPLATE_HELLO_WORLD)
@@ -132,15 +143,15 @@ class PascalTUI(App):
 
     def compose(self) -> ComposeResult:                        
         yield Header(show_clock=True)                          
-        
+
         with Vertical(id="main_layout"):
             with Vertical(id="workspace"):
                 yield Label("Активен: " + os.path.basename(self.current_file), id="cur_file_lbl")
-                
+
                 start_code = self.load_start_code()
                 self.editor = TextArea(start_code, language="pascal")                             
                 yield self.editor                                      
-                
+
                 with Horizontal(id="buttons_container"):
                     yield Button("📁 Проекты (O)", variant="primary", id="open_menu_btn")
                     yield Button("Запустить", variant="success", id="run_btn")                                   
@@ -155,7 +166,7 @@ class PascalTUI(App):
                     with Horizontal():
                         yield Button("Стереть весь код", variant="error", id="clear_btn")
                         yield Button("Восстановить", variant="warning", id="undo_btn")
-                
+
                 self.log_box = RichLog()                               
                 yield self.log_box                                     
         yield Footer()                                                                                            
@@ -186,27 +197,30 @@ class PascalTUI(App):
                 count += 1
             new_filename = f"project_{count}.pas"
             self.current_file = os.path.join(PROJECTS_DIR, new_filename)
-            
+
+            # Проверяем радио-кнопку настроек для выбора шаблона нового файла
+            radio_hello = self.query_one("#set_hello", RadioButton)
+            chosen_template = TEMPLATE_HELLO_WORLD if radio_hello.value else TEMPLATE_EMPTY
+
             with open(self.current_file, "w", encoding="utf-8") as f:
-                f.write(TEMPLATE_HELLO_WORLD)
-                
-            self.editor.text = TEMPLATE_HELLO_WORLD
+                f.write(chosen_template)
+
+            self.editor.text = chosen_template
             self.query_one("#cur_file_lbl").update("Активен: " + new_filename)
             self.log_box.write(f"[Создан файл: {new_filename}]\n")
-            # Сразу открываем меню заново, чтобы увидеть изменения
             self.action_open_menu()
 
         elif action_type == "delete":
             filename = data.replace("file_", "").replace("_pas", ".pas")
             target_path = os.path.join(PROJECTS_DIR, filename)
-            
+
             if os.path.exists(target_path):
                 os.remove(target_path)
                 exe_p = os.path.splitext(target_path)[0] + ".exe"
                 if os.path.exists(exe_p): os.remove(exe_p)
-                
+
                 self.log_box.write(f"[Файл {filename} удален]\n")
-                
+
                 remaining_files = [f for f in os.listdir(PROJECTS_DIR) if f.endswith(".pas")]
                 if remaining_files:
                     self.current_file = os.path.join(PROJECTS_DIR, remaining_files[0])
@@ -214,36 +228,39 @@ class PascalTUI(App):
                     self.current_file = os.path.join(PROJECTS_DIR, "main.pas")
                     with open(self.current_file, "w", encoding="utf-8") as f:
                         f.write(TEMPLATE_HELLO_WORLD)
-                
+
                 with open(self.current_file, "r", encoding="utf-8") as f:
                     self.editor.text = f.read()
-                
+
                 self.query_one("#cur_file_lbl").update("Активен: " + os.path.basename(self.current_file))
-            # Переоткрываем меню, чтобы обновить список
             self.action_open_menu()
 
     def on_button_pressed(self, event: Button.Pressed) -> None:                                                       
         if event.button.id == "open_menu_btn":
             self.action_open_menu()
-            
+
         elif event.button.id == "run_btn":                           
             self.log_box.clear()                                                                                          
             self.save_current_file()                                                                                 
-            
+
             base_name = os.path.splitext(self.current_file)[0]
             exe_path = base_name + ".exe"
-            
+
             if os.path.exists(exe_path):                         
                 os.remove(exe_path)                                                                                 
-                
+
             self.log_box.write(f"Компиляция {os.path.basename(self.current_file)}...\n")                                                                                                             
-            
-            comp_path = "/data/data/com.termux/files/home/pascalabcnet/abc-pascal-tui-termux/pabcnetc.exe"                                  
-            res = subprocess.run(["mono", comp_path, self.current_file], capture_output=True, text=True)                                                                            
-            
+
+            # ИСПОЛЬЗУЕМ ДИНАМИЧЕСКИЙ ПУТЬ К КОМПИЛЯТОРУ
+            if not os.path.exists(COMPILER_PATH):
+                self.log_box.write(f"[ОШИБКА] Компилятор не найден по пути:\n{COMPILER_PATH}\n")
+                return
+
+            res = subprocess.run(["mono", COMPILER_PATH, self.current_file], capture_output=True, text=True)                                                                            
+
             if "Lines compiled:" in res.stdout or ("OK" in res.stdout and "Compiling assembly" in res.stdout):                
                 self.log_box.write("[Скомпилировано успешно! Запуск...]\n---\n")
-                
+
                 process = subprocess.Popen(
                     ["mono", exe_path],
                     stdout=subprocess.PIPE,
