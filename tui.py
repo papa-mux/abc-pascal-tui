@@ -5,6 +5,7 @@ from textual.app import App, ComposeResult
 from textual.screen import ModalScreen
 from textual.widgets import Header, Footer, Button, TextArea, RichLog, RadioSet, RadioButton, Label, ListView, ListItem
 from textual.containers import Horizontal, Vertical, Grid
+import subprocess
 
 TEMPLATE_HELLO_WORLD = "begin\n  writeln('Hello World');\nend."
 TEMPLATE_EMPTY = "begin\n  \nend."
@@ -294,3 +295,4 @@ class PascalTUI(App):
 
 if __name__ == "__main__":                                 
     PascalTUI().run()
+
