@@ -9,7 +9,7 @@ pkg install python -y
 pkg install git -y
 pip install textual
 #клонируем репозиторий через команду
-git clone [https://github.com/kuzmak161-creator/abc-pascal-tui-termux](https://github.com/kuzmak161-creator/abc-pascal-tui-termux)
+git clone https://github.com/kuzmak161-creator/abc-pascal-tui-termux
 cd abc-pascal-tui-termux
 #запускаем 
 python tui.py
