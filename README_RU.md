@@ -1,7 +1,7 @@
 [![English](https://img.shields.io/badge/Language-English-red?style=for-the-badge)](README.md) [![Українська](https://img.shields.io/badge/Language-Українська-yellow?style=for-the-badge)](README_UA.md)
 
 ## ОПИСАНИЕ 
-abc-pascal-tui-termux - это IDE для Паскаля, основанная на компиляторе PascalABC.NET, но использующий TUI-интерфейс на Python.
+abc-pascal-tui - это IDE для Паскаля, основанная на компиляторе PascalABC.NET, но использующий TUI-интерфейс на Python.
 ## скачивание 
 Для скачивания IDE необходимо сначала установить Python, Mono, Git и библиотеку Textual.
 
@@ -31,11 +31,11 @@ pkg install git -y
 pip install textual
 ```
 ```bash
-git clone https://github.com/kuzmak161-creator/abc-pascal-tui-termux
+git clone https://github.com/kuzmak161-creator/abc-pascal-tui
 ```
 
 ```bash
-cd abc-pascal-tui-termux
+cd abc-pascal-tui
 ```
 
 Запускаем
