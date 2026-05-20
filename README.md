@@ -4,7 +4,7 @@
 
 
 ## DESCRIPTION
-abc-pascal-tui-termux is an IDE for Pascal based on the PascalABC.NET compiler, utilizing a Python-based TUI (Text User Interface).
+abc-pascal-tui is an IDE for Pascal based on the PascalABC.NET compiler, utilizing a Python-based TUI (Text User Interface).
 
 ## DOWNLOAD
 To download the IDE, you must first install Python, Mono, Git, and the Textual library.
@@ -35,11 +35,11 @@ pip install textual
 ```
 
 ```bash
-git clone https://github.com/kuzmak161-creator/abc-pascal-tui-termux
+git clone https://github.com/kuzmak161-creator/abc-pascal-tui
 ```
 
 ```bash
-cd abc-pascal-tui-termux
+cd abc-pascal-tui
 ```
 
 Launch:
