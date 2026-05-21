@@ -70,7 +70,7 @@ cd abc-pascal-tui
 launch
 ```bash
 python3 tui.py
-'''
+```
 
 ### Updates are released less frequently in official releases.
 
