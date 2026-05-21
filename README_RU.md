@@ -12,7 +12,7 @@ abc-pascal - это IDE для Паскаля, основанная на ком�
 <p align="center">
   <img src="https://private-user-images.githubusercontent.com/285278862/593754255-de2eea2e-cbe2-4556-8149-7508e17753b7.jpg?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NzkwNTEyNTQsIm5iZiI6MTc3OTA1MDk1NCwicGF0aCI6Ii8yODUyNzg4NjIvNTkzNzU0MjU1LWRlMmVlYTJlLWNiZTItNDU1Ni04MTQ5LTc1MDhlMTc3NTNiNy5qcGc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYwNTE3JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MDUxN1QyMDQ5MTRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1iMTY5NDZmYWIzNTVjZmJkNzdlMDc0YzQ3OTZiYTZlNGE0ZjA2NWQ5OTE0N2NmYjc5MDU1MTZlNTM1MGRhZWUwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZqcGVnIn0.1SIcbI-UnMthAN7KT2s_euBF8jmwKXsZxAO5Mwr5ZSU" alt="Интерфейс в граф окружении" 
 
-введите команды в консоль:
+команды для установки в termux:
 
 
 ```bash
@@ -41,6 +41,32 @@ cd abc-pascal
 Запускаем
 ```bash
 python tui.py
+```
+
+команды для установки дебиан (проверено только на arm версии)
+
+
+```bash
+sudo apt install mono-complete 
+```
+```bash
+sudo apt install git -y
+```
+```bash
+sudo apt install python3 -y
+```
+```bash
+pip3 install textual
+```
+```bash
+git clone https://github.com/kuzmak161-creator/abc-pascal-tui.git
+```
+```bash
+cd abc-pascal-tui
+```
+запуск 
+```bash
+python3 tui.py
 ```
 
 ### в релизах более редко выходят обновления.
