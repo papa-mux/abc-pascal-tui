@@ -53,10 +53,10 @@ commands for installation in Debian (only tested with Arm versions)
 sudo apt install mono-complete 
 ```
 ```bash
-sudo apt git -y
+sudo apt install git -y
 ```
 ```bash
-sudo apt python3 -y
+sudo apt install python3 -y
 ```
 ```bash
 pip3 install textual
