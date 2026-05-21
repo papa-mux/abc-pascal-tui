@@ -1,0 +1,3 @@
+begin
+print('хуй');
+end.

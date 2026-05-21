@@ -270,17 +270,25 @@ class PascalTUI(App):
             if res.returncode == 0 and os.path.exists(exe_path):
                 self.log_box.write("[Скомпилировано успешно! Запуск...]\n")
 
+            # Проверяем код возврата и физическое появление собранного файла
+            if res.returncode == 0 and os.path.exists(exe_path):
+                self.log_box.write("[Скомпилировано успешно! Запуск...]\n")
+
                 with self.suspend():
                     import os as native_os
                     native_os.system('clear')
                     print(f"=== ЗАПУСК ПРОГРАММЫ ===")
                     print(f"Выполняется файл: {os.path.basename(exe_path)}\n------------------------")
 
-                    # Интерактивный запуск бинарника через mono в "уснувшем" Термуксе
-                    native_os.system(f"mono {exe_path}")
+                    # Просто вызываем глобальный subprocess, который у тебя импортирован в первой строке
+                    try:
+                        subprocess.run(["mono", exe_path])
+                    except Exception as e:
+                        print(f"\n[Ошибка запуска процесса]: {e}")
 
                     print("\n------------------------")
                     input("Программа завершена. Нажмите Enter, чтобы вернуться в IDE...")
+
             else:
                 self.log_box.write("[Ошибка компиляции!]\n")
                 if res.stdout:

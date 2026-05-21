@@ -1,3 +1,4 @@
-begin
-  writeln('Hello World');
+program bigblackcoks;
+begin 
+ writeln ('hui');
 end.
