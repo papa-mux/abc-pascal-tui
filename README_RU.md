@@ -31,11 +31,11 @@ pkg install git -y
 pip install textual
 ```
 ```bash
-git clone https://github.com/kuzmak161-creator/abc-pascal
+git clone https://github.com/kuzmak161-creator/abc-pascal-tui
 ```
 
 ```bash
-cd abc-pascal
+cd abc-pascal-tui
 ```
 
 Запускаем
