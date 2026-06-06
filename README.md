@@ -35,7 +35,7 @@ pip install textual
 ```
 
 ```bash
-git clone https://github.com/kuzmak161-creator/abc-pascal-tui
+git clone https://github.com/papa-mux/abc-pascal-tui
 ```
 
 ```bash
@@ -62,7 +62,7 @@ sudo apt install python3 -y
 pip3 install textual
 ```
 ```bash
-git clone https://github.com/kuzmak161-creator/abc-pascal-tui.git
+git clone https://github.com/papa-mux/abc-pascal-tui
 ```
 ```bash
 cd abc-pascal-tui
