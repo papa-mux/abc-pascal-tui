@@ -2,7 +2,7 @@
 
 ---
 ![Logo](logo.svg)
----
+
 
 ## DESCRIPTION
 abc-pascal-tui is an IDE for Pascal based on the PascalABC.NET compiler, utilizing a Python-based TUI (Text User Interface).
