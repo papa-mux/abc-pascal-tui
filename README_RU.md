@@ -1,4 +1,6 @@
 [![English](https://img.shields.io/badge/Language-English-red?style=for-the-badge)](README.md) [![Українська](https://img.shields.io/badge/Language-Українська-yellow?style=for-the-badge)](README_UA.md)
+---
+![Logo](logo.svg)
 
 ## ОПИСАНИЕ 
 abc-pascal - это IDE для Паскаля, основанная на компиляторе PascalABC.NET, но использующий TUI-интерфейс на Python.
